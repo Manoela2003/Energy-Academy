@@ -1,0 +1,25 @@
+:root {
+  /* Brand Tokens */
+  --color-primary: #3D5C5F;
+  --color-primary-hover: #2E4749;
+  --color-secondary: #87A0A5;
+  --color-accent: #6F3A28;
+  --color-accent-hover: #542B1D;
+
+  /* Surfaces & Backgrounds */
+  --color-bg: #FCD8C0;
+  --color-surface: hsl(0, 0%, 95%);
+  --color-surface-soft: #DBB98B;
+
+  /* Typography & Borders */
+  --color-text-main: #0C0E0F;
+  --color-text-muted: #566466;
+  --color-border: rgba(61, 92, 95, 0.2);
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}

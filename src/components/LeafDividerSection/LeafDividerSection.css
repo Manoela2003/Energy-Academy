@@ -1,0 +1,79 @@
+.leaf-divider-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  background-color: var(--color-surface);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.vine-branch {
+  flex: 1;
+  min-width: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.leaf-vine-svg {
+  width: 100%;
+  height: 40px;
+  display: block;
+}
+
+.leaf-vine-svg.mirrored {
+  transform: scaleX(-1);
+}
+
+.leaf-center-box {
+  flex: 0 1 540px;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  background: var(--color-surface-soft);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(74, 46, 27, 0.08);
+}
+
+.leaf-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #51260a;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.leaf-heading {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 1rem 0;
+  line-height: 1.25;
+}
+
+.leaf-description {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: hsl(0, 0%, 27%);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .leaf-divider-container {
+    flex-direction: column;
+    padding: 1.5rem 0;
+  }
+
+  .vine-branch {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .leaf-center-box {
+    margin: 1.5rem 0;
+    width: 100%;
+    flex-basis: 0;
+  }
+}
