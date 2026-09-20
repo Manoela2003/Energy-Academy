@@ -45,6 +45,7 @@
   
   transform: translateZ(0);
   -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
   border-radius: 20px 20px 0 0;
 }
 
