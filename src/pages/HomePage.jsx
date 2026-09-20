@@ -10,6 +10,10 @@ function HomePage() {
             <HeroSection />
             <LeafDividerSection />
             <UpcomingEventsSection />
+            <div style={{height: '200px'}}>
+
+
+            </div>
         </>
     )
 }
