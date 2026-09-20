@@ -1,5 +1,5 @@
 import './UpcomingEventSection.css'
-import { MoveRight, Sparkles } from 'lucide-react'
+import { MoveRight, Sparkles, CalendarDays } from 'lucide-react'
 import courseOneImage from '../../assets/course-1-image.jpg'
 import courseTwoImage from '../../assets/course-2-image.jpg'
 
@@ -73,14 +73,22 @@ export default function UpcomingEventsSection() {
     },
   ]
 
-  return (
-    <section className="upcoming-events-container">
-      <h2 className="upcoming-events-title">Предстоящи събития</h2>
-      <div className="events">
-        {events.map((event) => (
-          <Event key={event.id} {...event} />
-        ))}
-      </div>
-    </section>
-  )
+return (
+  <section className="upcoming-events-container">
+    <h2 className="upcoming-events-title">Предстоящи събития</h2>
+    
+    <div className="events">
+      {events.map((event) => (
+        <Event key={event.id} {...event} />
+      ))}
+    </div>
+
+<div className="events-footer">
+  <a href="/events" className="view-all-link">
+    <CalendarDays size={18} />
+    <span>Всички предстоящи събития</span>
+  </a>
+</div>
+  </section>
+)
 }
