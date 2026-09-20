@@ -1,10 +1,16 @@
 import './HeroSection.css';
-import tree from '../../assets/tree.jpg';
+import tree from '../../../public/tree.webp';
 
 function HeroSection() {
     return (
         <section className="hero-container">
-            <img className="hero-image" src={tree} alt="Energy Academy Foundation Tree" />
+            <img
+                className="hero-image"
+                src={tree}
+                alt="Energy Academy Foundation Tree"
+                fetchPriority="high"
+                loading="eager"
+            />
 
             <div className="hero-overlay">
                 <div className="hero-solid-content">
