@@ -1,5 +1,5 @@
 import './HeroSection.css';
-import tree from '../../../public/tree.webp';
+import tree from '/tree.webp';
 
 function HeroSection() {
     return (

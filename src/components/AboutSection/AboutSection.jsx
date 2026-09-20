@@ -1,5 +1,15 @@
 import './AboutSection.css'
-import aboutImage from '../../assets/about-me-image.jpg'
+import aboutImage from '../../assets/about-me-image.webp'
+import { motion } from 'framer-motion'
+
+const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: [0.25, 1, 0.5, 1] }
+    }
+}
 
 export default function AboutSection() {
     return (
@@ -11,10 +21,17 @@ export default function AboutSection() {
                         src={aboutImage}
                         alt="Бистра Стаменова - радиестезист"
                         className="about-image"
+                        decoding="async"
                     />
                 </div>
 
-                <div className="about-content">
+                <motion.div
+                    className="about-content"
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                >
                     <span className="about-eyebrow">За мен</span>
                     <h2 className="about-title">
                         Здравейте, аз съм <span className="highlight-name">Бистра Стаменова</span>
@@ -41,7 +58,7 @@ export default function AboutSection() {
                     <blockquote className="about-quote">
                         „Това, което не се вижда с очите, понякога се усеща най-силно.“
                     </blockquote>
-                </div>
+                </motion.div>
             </div>
         </section>
     )

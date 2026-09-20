@@ -29,12 +29,6 @@
   overflow: hidden;
   border: 1px solid var(--color-border);
   box-shadow: rgba(61, 92, 95, 0.08) 0px 8px 24px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.event:hover {
-  transform: translateY(-6px);
-  box-shadow: rgba(61, 92, 95, 0.18) 0px 16px 36px;
 }
 
 .event-media {
@@ -43,7 +37,6 @@
   overflow: hidden;
   background-color: var(--color-surface-soft);
   
-  transform: translateZ(0);
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   mask-image: radial-gradient(white, black);
   border-radius: 20px 20px 0 0;
@@ -58,13 +51,7 @@
   image-rendering: auto;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  transform: translateZ(0) scale(1.001);
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform;
-}
-
-.event:hover .event-img {
-  transform: translateZ(0) scale(1.05);
 }
 
 .event-content {
