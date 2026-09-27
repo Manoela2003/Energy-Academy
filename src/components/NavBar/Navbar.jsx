@@ -17,8 +17,7 @@ function NavBar() {
         <nav className="nav-bar">
             <img className="nav-logo" src={logo} />
             <ul>
-                {/* {navItems.map(item => <li key={item.id} className="nav-item"><a href={item.href}>{item.label}</a></li>)} */}
-                {navItems.map(item => <NavLink key={item.id} className={({isActive}) => isActive ? "nav-item active" : "nav-item"} to={item.href} end>{item.label}</NavLink>)}
+                {navItems.map(item => <NavLink key={item.id} className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} to={item.href} end>{item.label}</NavLink>)}
             </ul>
             <User />
         </nav>
