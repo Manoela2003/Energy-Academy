@@ -14,10 +14,6 @@
 }
 
 .nav-bar .nav-item {
-    list-style-type: none;
-}
-
-.nav-bar .nav-item a {
     text-decoration: none;
     color: var(--color-surface);
     font-weight: bold;

@@ -1,7 +1,7 @@
 import './ProbioticSection.css'
 import { motion } from 'framer-motion'
 import { ShoppingBag, UserPlus, ShieldCheck } from 'lucide-react'
-import probioticImage from '../../assets/probiotic-placeholder.webp' // Replace with your actual product image
+import probioticImage from '../../../assets/probiotic-placeholder.webp'
 
 export default function ProbioticSection() {
     return (
