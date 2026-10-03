@@ -11,9 +11,10 @@ import AboutMe from './pages/AboutMe.jsx'
 function App() {
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [backendContent, setBackendContent] = useState({});
+  const API_URL = 'https://energy-academy-be.onrender.com/api/content';
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/content')
+    fetch(API_URL)
       .then(res => res.json())
       .then(data => {
         setBackendContent(data);
@@ -23,7 +24,7 @@ function App() {
 
   const handleSaveContent = async (key, newValue) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/content/${key}`, {
+      const response = await fetch(`${API_URL}/${key}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ contentValue: newValue })
