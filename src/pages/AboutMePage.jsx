@@ -3,12 +3,12 @@ import Certificates from '../components/AboutComponents/Certificates/Certificate
 import MagicalTips from '../components/AboutComponents/MagicalTips/MagicalTips.jsx'
 import './css/AboutMePage.css'
 
-function AboutMePage() {
+function AboutMePage({isAdminMode, backendContent, onSave}) {
     return (
         <div className="about-me-page">
-            <AboutOwner />
-            <Certificates />
-            <MagicalTips />
+            <AboutOwner isAdminMode={isAdminMode} backendContent={backendContent} onSave={onSave} />
+            <Certificates isAdminMode={isAdminMode} backendContent={backendContent} onSave={onSave} />
+            <MagicalTips isAdminMode={isAdminMode} backendContent={backendContent} onSave={onSave} />
         </div>
     )
 }

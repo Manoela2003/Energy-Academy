@@ -30,6 +30,7 @@
 .inline-edit-container {
     display: inline-flex;
     flex-direction: column;
+    width: 100%;
     gap: 6px;
     background: #f8f9fa;
     padding: 8px;
@@ -41,7 +42,6 @@
 
 .inline-edit-container textarea {
     width: 100%;
-    min-width: 400px;
     min-height: 200px;
     padding: 6px;
     font-size: 1rem;

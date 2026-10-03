@@ -3,8 +3,10 @@ import './Certificates.css'
 import certificate1 from '../../../assets/certificate-1.jpg'
 import certificate2 from '../../../assets/certificate-2.jpg'
 import certificate3 from '../../../assets/certificate-3.jpg'
+import { getText } from '../../../utils/ContentHelper.jsx'
+import EditableText from '../../EditableText/EditableText.jsx'
 
-function Certificates() {
+function Certificates({ isAdminMode, backendContent, onSave }) {
     const [selectedImage, setSelectedImage] = useState(null);
 
     const certificates = [
@@ -21,15 +23,24 @@ function Certificates() {
                     {certificates.map(cert => (
                         <div key={cert.id} className="cert-card">
                             <div className="cert-image-wrapper" onClick={() => setSelectedImage(cert.image)}>
-                                <img src={cert.image} alt={cert.title} className="cert-image" />
+                                <img src={cert.image} alt={getText(backendContent, `certificate-${cert.id}-title`, cert.title)} className="cert-image" />
                                 <div className="cert-overlay">
                                     <span>Увеличи</span>
                                 </div>
                             </div>
                             <div className="cert-info">
-                                <h3>{cert.title}</h3>
-                                <p className="cert-issuer">{cert.issuer}</p>
-                                <span className="cert-year">{cert.year}</span>
+                                <h3>
+                                    <EditableText isAdminMode={isAdminMode} contentKey={`certificate-${cert.id}-title`} onSave={onSave}
+                                                initialText={getText(backendContent, `certificate-${cert.id}-title`, cert.title)} />
+                                </h3>
+                                <div className="cert-issuer">
+                                    <EditableText isAdminMode={isAdminMode} contentKey={`certificate-${cert.id}-issuer`} onSave={onSave}
+                                                initialText={getText(backendContent, `certificate-${cert.id}-issuer`, cert.issuer)} />
+                                </div>
+                                <span className="cert-year">
+                                    <EditableText isAdminMode={isAdminMode} contentKey={`certificate-${cert.id}-year`} onSave={onSave}
+                                                initialText={getText(backendContent, `certificate-${cert.id}-year`, cert.year)} />
+                                </span>
                             </div>
                         </div>
                     ))}
