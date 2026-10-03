@@ -6,7 +6,7 @@ import HomePage from './pages/HomePage.jsx'
 import ProbioticPage from './pages/ProbioticPage.jsx'
 import NavBar from './components/NavBar/NavBar'
 import Footer from './components/Footer/Footer.jsx'
-import AboutMe from './pages/AboutMe.jsx'
+import AboutMe from './pages/AboutMePage.jsx'
 
 function App() {
   const [isAdminMode, setIsAdminMode] = useState(false);

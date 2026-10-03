@@ -1,0 +1,91 @@
+.magical-tips-section {
+    padding: 5rem 1.5rem;
+}
+
+.magical-tips-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.magical-card {
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid var(--color-border);
+    box-shadow: rgba(61, 92, 95, 0.1) 0px 12px 36px;
+    padding: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.magical-title {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+.magical-intro {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-text-main);
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.tip-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(252, 216, 192, 0.2);
+    padding: 1.25rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--color-accent);
+}
+
+.tip-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.tip-item p {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--color-text-main);
+}
+
+.magical-signature {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px dashed var(--color-border);
+}
+
+.magical-signature p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-weight: 600;
+}
+
+.magical-signature h3 {
+    margin: 0.5rem 0;
+    color: var(--color-primary);
+    font-size: 1.4rem;
+}
+
+@media (max-width: 992px) {
+    .magical-card {
+        padding: 2rem 1.5rem;
+    }
+}
