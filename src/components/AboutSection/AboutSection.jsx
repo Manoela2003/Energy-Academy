@@ -1,6 +1,7 @@
 import './AboutSection.css'
 import aboutImage from '../../assets/about-me-image.webp'
 import { motion } from 'framer-motion'
+import EditableText from '../EditableText/EditableText.jsx'
 
 const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -11,7 +12,11 @@ const fadeIn = {
     }
 }
 
-export default function AboutSection() {
+export default function AboutSection({ isAdminMode }) {
+    const handleSaveContent = (key, newValue) => {
+        console.log(`Saving ${key} with value: ${newValue}`);
+    };
+
     return (
         <section className="about-section">
             <div className="about-container">
@@ -37,26 +42,31 @@ export default function AboutSection() {
                         Здравейте, аз съм <span className="highlight-name">Бистра Стаменова</span>
                     </h2>
 
-                    <p className="about-intro">
-                        От 2023 г. моят път е свързан с радиестезията, енергийните изчиствания и работата с фините енергийни полета.
-                    </p>
+                    <div className="about-intro">
+                        <EditableText isAdminMode={isAdminMode} contentKey='about-intro' onSave={handleSaveContent}
+                            initialText="От 2023 г. моят път е свързан с радиестезията, енергийните изчиствания и работата с фините енергийни полета." />
+                    </div>
 
-                    <p className="about-text">
-                        В практиката си изследвам невидимите взаимодействия, които могат да влияят върху човека и неговото състояние. Работя с изчистване и балансиране на биополето, както и с практики за освобождаване от нежелани енергийни влияния, натрупвания, програми, кодове, отпечатъци и същности.
-                    </p>
+                    <div className="about-text">
+                        <EditableText isAdminMode={isAdminMode} contentKey='about-text' onSave={handleSaveContent}
+                            initialText="В практиката си изследвам невидимите взаимодействия, които могат да влияят върху човека и неговото състояние. Работя с изчистване и балансиране на биополето, както и с практики за освобождаване от нежелани енергийни влияния, натрупвания, програми, кодове, отпечатъци и същности." />
+                    </div>
 
-                    <p className="about-text">
-                        Чрез радиестезията търся информацията, свързана с конкретното състояние, а чрез енергийните практики работя в посока хармонизиране и възстановяване на вътрешния баланс. Всяка работа е изцяло индивидуална - с внимание към вашите лични усещания и нужди.
-                    </p>
+                    <div className="about-text">
+                        <EditableText isAdminMode={isAdminMode} contentKey='about-text-2' onSave={handleSaveContent}
+                            initialText="Чрез радиестезията търся информацията, свързана с конкретното състояние, а чрез енергийните практики работя в посока хармонизиране и възстановяване на вътрешния баланс. Всяка работа е изцяло индивидуална - с внимание към вашите лични усещания и нужди." />
+                    </div>
 
                     <div className="about-welcome-box">
-                        <p>
-                            Понякога промяната започва там, където невидимото най-накрая бъде осъзнато. Добре дошли в пространство, посветено на терапията и познанието за фините енергии.
-                        </p>
+                        <div>
+                            <EditableText isAdminMode={isAdminMode} contentKey='about-welcome-box' onSave={handleSaveContent}
+                                initialText="Понякога промяната започва там, където невидимото най-накрая бъде осъзнато. Добре дошли в пространство, посветено на терапията и познанието за фините енергии." />
+                        </div>
                     </div>
 
                     <blockquote className="about-quote">
-                        „Това, което не се вижда с очите, понякога се усеща най-силно.“
+                        <EditableText isAdminMode={isAdminMode} contentKey='about-quote' onSave={handleSaveContent}
+                            initialText="„Това, което не се вижда с очите, понякога се усеща най-силно.“" />
                     </blockquote>
                 </motion.div>
             </div>

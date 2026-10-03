@@ -4,14 +4,14 @@ import UpcomingEventsSection from '../components/UpcomingEventsSection/UpcomingE
 import AboutSection from '../components/AboutSection/AboutSection.jsx';
 import ProbioticSection from '../components/ProbioticComponents/ProbioticSection/ProbioticSection.jsx';
 
-function HomePage() {
+function HomePage({isAdminMode}) {
     return (
         <>
             <HeroSection />
-            <LeafDividerSection />
-            <UpcomingEventsSection />
-            <AboutSection />
-            <ProbioticSection />
+            <LeafDividerSection isAdminMode={isAdminMode}/>
+            <UpcomingEventsSection isAdminMode={isAdminMode}/>
+            <AboutSection isAdminMode={isAdminMode}/>
+            <ProbioticSection isAdminMode={isAdminMode}/>
         </>
     )
 }

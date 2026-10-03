@@ -1,0 +1,32 @@
+.admin-toggle-bar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.admin-toggle-btn {
+  background-color: #343a40;
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.admin-toggle-btn:hover {
+  background-color: #212529;
+  transform: translateY(-2px);
+}
+
+.admin-toggle-btn.active {
+  background-color: #28a745;
+}
+
+.admin-toggle-btn.active:hover {
+  background-color: #218838;
+}

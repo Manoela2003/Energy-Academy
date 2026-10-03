@@ -1,5 +1,6 @@
 import './LeafDividerSection.css';
 import { motion } from 'framer-motion';
+import EditableText from '../EditableText/EditableText.jsx'
 
 const vineVariants = {
   hidden: { pathLength: 0, opacity: 0 },
@@ -83,7 +84,11 @@ const LeafVineSvg = ({ mirrored = false }) => (
   </motion.svg>
 );
 
-export default function LeafDividerSection() {
+export default function LeafDividerSection({ isAdminMode }) {
+  const handleSaveContent = (key, newValue) => {
+    console.log(`Saving ${key} with value: ${newValue}`);
+  };
+
   return (
     <section className="leaf-divider-container">
       <div className="vine-branch left">
@@ -97,13 +102,20 @@ export default function LeafDividerSection() {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <span className="leaf-tag">Енергията говори. Въпросът е дали умеем да я чуем.</span>
-        <h2 className="leaf-heading">Усети. Осъзнай. Балансирай.</h2>
-        <p className="leaf-description">
-          Всичко около нас е движение, взаимодействие и енергия.
+        <span className="leaf-tag">
+          <EditableText isAdminMode={isAdminMode} contentKey='leaf-tag' onSave={handleSaveContent}
+            initialText="Енергията говори. Въпросът е дали умеем да я чуем." />
+        </span>
+        <h2 className="leaf-heading">
+          <EditableText isAdminMode={isAdminMode} contentKey='leaf-heading' onSave={handleSaveContent}
+            initialText="Усети. Осъзнай. Балансирай." />
+        </h2>
+        <div className="leaf-description">
+          <EditableText isAdminMode={isAdminMode} contentKey='leaf-description' onSave={handleSaveContent}
+            initialText="Всичко около нас е движение, взаимодействие и енергия.
           Чрез енергийни практики и радиестезия навлизаме отвъд видимото, за да изследваме
-          фините полета, които ни заобикалят и влияят на ежедневното ни състояние.
-        </p>
+          фините полета, които ни заобикалят и влияят на ежедневното ни състояние."/>
+        </div>
       </motion.div>
 
       <div className="vine-branch right">
