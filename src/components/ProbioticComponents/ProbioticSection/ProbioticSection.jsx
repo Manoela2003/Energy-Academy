@@ -3,11 +3,9 @@ import { motion } from 'framer-motion'
 import { ShoppingBag, UserPlus, ShieldCheck } from 'lucide-react'
 import probioticImage from '../../../assets/probiotic-placeholder.webp'
 import EditableText from '../../EditableText/EditableText.jsx'
+import { getText } from '../../../utils/ContentHelper.jsx'
 
-export default function ProbioticSection({ isAdminMode }) {
-    const handleSaveContent = (key, newValue) => {
-        console.log(`Saving ${key} with value: ${newValue}`);
-    };
+export default function ProbioticSection({ isAdminMode, backendContent, onSave }) {
 
     return (
         <section className="probiotic-section">
@@ -22,16 +20,16 @@ export default function ProbioticSection({ isAdminMode }) {
                     <div className="probiotic-header">
                         <span className="probiotic-badge">
                             <ShieldCheck size={16} />
-                            <EditableText isAdminMode={isAdminMode} contentKey='probiotic-badge' onSave={handleSaveContent}
-                                initialText="Цялостна грижа отвътре" />
+                            <EditableText isAdminMode={isAdminMode} contentKey='probiotic-badge' onSave={onSave}
+                                initialText={getText(backendContent, 'probiotic-badge', "Цялостна грижа отвътре")} />
                         </span>
                         <h2 className="probiotic-title">
-                            <EditableText isAdminMode={isAdminMode} contentKey='probiotic-title' onSave={handleSaveContent}
-                                initialText="Балансът започва в микробиома" />
+                            <EditableText isAdminMode={isAdminMode} contentKey='probiotic-title' onSave={onSave}
+                                initialText={getText(backendContent, 'probiotic-title', "Балансът започва в микробиома")} />
                         </h2>
                         <div className="probiotic-subtitle">
-                            <EditableText isAdminMode={isAdminMode} contentKey='probiotic-subtitle' onSave={handleSaveContent}
-                                initialText="Често търсим причината за трудното сваляне на килограми само в храната… но организмът е много по-сложна система. 🌿" />
+                            <EditableText isAdminMode={isAdminMode} contentKey='probiotic-subtitle' onSave={onSave}
+                                initialText={getText(backendContent, 'probiotic-subtitle', "Често търсим причината за трудното сваляне на килограми само в храната… но организмът е много по-сложна система. 🌿")} />
                         </div>
                     </div>
 
@@ -48,20 +46,20 @@ export default function ProbioticSection({ isAdminMode }) {
 
                         <div className="probiotic-info">
                             <div className="probiotic-paragraph">
-                                <EditableText isAdminMode={isAdminMode} contentKey='probiotic-paragraph' onSave={handleSaveContent}
-                                    initialText="Чревната микрофлора участва в редица процеси, свързани с храносмилането и обмяната на веществата. Затова грижата за нейния баланс може да бъде важна част от цялостния подход към доброто здраве." />
+                                <EditableText isAdminMode={isAdminMode} contentKey='probiotic-paragraph' onSave={onSave}
+                                    initialText={getText(backendContent, 'probiotic-paragraph', "Чревната микрофлора участва в редица процеси, свързани с храносмилането и обмяната на веществата. Затова грижата за нейния баланс може да бъде важна част от цялостния подход към доброто здраве.")} />
                             </div>
 
                             <div className="probiotic-highlight-box">
                                 <div>
-                                    <EditableText isAdminMode={isAdminMode} contentKey='probiotic-highlight' onSave={handleSaveContent}
-                                        initialText="MaXilin е пробиотик, създаден да допълни ежедневната грижа за чревната микрофлора. Не като „магическо решение“, а като част от устойчив режим, включващ балансирано хранене, движение и достатъчно сън." />
+                                    <EditableText isAdminMode={isAdminMode} contentKey='probiotic-highlight' onSave={onSave}
+                                        initialText={getText(backendContent, 'probiotic-highlight', "MaXilin е пробиотик, създаден да допълни ежедневната грижа за чревната микрофлора. Не като „магическо решение“, а като част от устойчив режим, включващ балансирано хранене, движение и достатъчно сън.")} />
                                 </div>
                             </div>
 
                             <div className="probiotic-footer-text">
-                                <EditableText isAdminMode={isAdminMode} contentKey='probiotic-footer-text' onSave={handleSaveContent}
-                                    initialText="Погрижи се за себе си отвътре навън. 💚" />
+                                <EditableText isAdminMode={isAdminMode} contentKey='probiotic-footer-text' onSave={onSave}
+                                    initialText={getText(backendContent, 'probiotic-footer-text', "Погрижи се за себе си отвътре навън. 💚")} />
                             </div>
 
                             <div className="probiotic-actions">

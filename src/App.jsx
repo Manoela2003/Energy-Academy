@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './css/App.css'
 import './css/reset.css'
 import HomePage from './pages/HomePage.jsx'
@@ -8,10 +8,34 @@ import NavBar from './components/NavBar/NavBar'
 import Footer from './components/Footer/Footer.jsx'
 import AboutMe from './pages/AboutMe.jsx'
 
-
-
 function App() {
   const [isAdminMode, setIsAdminMode] = useState(false);
+  const [backendContent, setBackendContent] = useState({});
+
+  useEffect(() => {
+    fetch('http://localhost:8080/api/content')
+      .then(res => res.json())
+      .then(data => {
+        setBackendContent(data);
+      })
+      .catch(err => console.log("Backend not running or offline, using defaults.", err));
+  }, []);
+
+  const handleSaveContent = async (key, newValue) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/content/${key}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contentValue: newValue })
+      });
+
+      if (response.ok) {
+        setBackendContent(prev => ({ ...prev, [key]: newValue }));
+      }
+    } catch (error) {
+      console.error("Failed to save content to backend:", error);
+    }
+  };
 
   return (
     <div className="app">
@@ -25,9 +49,12 @@ function App() {
         </button>
       </div>
       <Routes>
-        <Route path="/" element={<HomePage isAdminMode={isAdminMode}/>} />
-        <Route path="/probiotic" element={<ProbioticPage isAdminMode={isAdminMode}/>} />
-        <Route path="/about-me" element={<AboutMe isAdminMode={isAdminMode}/>} />
+        <Route path="/" element={<HomePage isAdminMode={isAdminMode} backendContent={backendContent}
+          onSave={handleSaveContent} />} />
+        <Route path="/probiotic" element={<ProbioticPage isAdminMode={isAdminMode} backendContent={backendContent}
+          onSave={handleSaveContent} />} />
+        <Route path="/about-me" element={<AboutMe isAdminMode={isAdminMode} backendContent={backendContent}
+          onSave={handleSaveContent} />} />
       </Routes>
 
       <Footer />

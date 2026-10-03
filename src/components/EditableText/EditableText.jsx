@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaEdit, FaCheck, FaTimes } from 'react-icons/fa';
 import './EditableText.css';
 
@@ -6,6 +6,11 @@ export default function EditableText({ contentKey, initialText, isAdminMode, onS
     const [text, setText] = useState(initialText);
     const [isEditing, setIsEditing] = useState(false);
     const [tempText, setTempText] = useState(initialText);
+
+    useEffect(() => {
+        setText(initialText);
+        setTempText(initialText);
+    }, [initialText]);
 
     const handleSave = () => {
         setText(tempText);
@@ -23,8 +28,8 @@ export default function EditableText({ contentKey, initialText, isAdminMode, onS
     if (isAdminMode && isEditing) {
         return (
             <span className="inline-edit-container active">
-                <textarea 
-                    value={tempText} 
+                <textarea
+                    value={tempText}
                     onChange={(e) => setTempText(e.target.value)}
                     rows={2}
                 />
@@ -44,9 +49,9 @@ export default function EditableText({ contentKey, initialText, isAdminMode, onS
         <span className="editable-wrapper">
             {text}
             {isAdminMode && (
-                <button 
-                    onClick={() => { setTempText(text); setIsEditing(true); }} 
-                    className={`edit-trigger-button ${isAdminMode ? 'active' : ''}`} 
+                <button
+                    onClick={() => { setTempText(text); setIsEditing(true); }}
+                    className={`edit-trigger-button ${isAdminMode ? 'active' : ''}`}
                     title="Редактирай текста"
                 >
                     <FaEdit />

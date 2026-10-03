@@ -2,20 +2,9 @@ import './AboutSection.css'
 import aboutImage from '../../assets/about-me-image.webp'
 import { motion } from 'framer-motion'
 import EditableText from '../EditableText/EditableText.jsx'
+import { getText } from '../../utils/ContentHelper.jsx'
 
-const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5, ease: [0.25, 1, 0.5, 1] }
-    }
-}
-
-export default function AboutSection({ isAdminMode }) {
-    const handleSaveContent = (key, newValue) => {
-        console.log(`Saving ${key} with value: ${newValue}`);
-    };
+export default function AboutSection({ isAdminMode, backendContent, onSave }) {
 
     return (
         <section className="about-section">
@@ -43,30 +32,30 @@ export default function AboutSection({ isAdminMode }) {
                     </h2>
 
                     <div className="about-intro">
-                        <EditableText isAdminMode={isAdminMode} contentKey='about-intro' onSave={handleSaveContent}
-                            initialText="От 2023 г. моят път е свързан с радиестезията, енергийните изчиствания и работата с фините енергийни полета." />
+                        <EditableText isAdminMode={isAdminMode} contentKey='about-intro' onSave={onSave}
+                            initialText={getText(backendContent, 'about-intro', "От 2023 г. моят път е свързан с радиестезията, енергийните изчиствания и работата с фините енергийни полета.")} />
                     </div>
 
                     <div className="about-text">
-                        <EditableText isAdminMode={isAdminMode} contentKey='about-text' onSave={handleSaveContent}
-                            initialText="В практиката си изследвам невидимите взаимодействия, които могат да влияят върху човека и неговото състояние. Работя с изчистване и балансиране на биополето, както и с практики за освобождаване от нежелани енергийни влияния, натрупвания, програми, кодове, отпечатъци и същности." />
+                        <EditableText isAdminMode={isAdminMode} contentKey='about-text' onSave={onSave}
+                            initialText={getText(backendContent, 'about-text', "В практиката си изследвам невидимите взаимодействия, които могат да влияят върху човека и неговото състояние. Работя с изчистване и балансиране на биополето, както и с практики за освобождаване от нежелани енергийни влияния, натрупвания, програми, кодове, отпечатъци и същности.")} />
                     </div>
 
                     <div className="about-text">
-                        <EditableText isAdminMode={isAdminMode} contentKey='about-text-2' onSave={handleSaveContent}
-                            initialText="Чрез радиестезията търся информацията, свързана с конкретното състояние, а чрез енергийните практики работя в посока хармонизиране и възстановяване на вътрешния баланс. Всяка работа е изцяло индивидуална - с внимание към вашите лични усещания и нужди." />
+                        <EditableText isAdminMode={isAdminMode} contentKey='about-text-2' onSave={onSave}
+                            initialText={getText(backendContent, 'about-text-2', "Чрез радиестезията търся информацията, свързана с конкретното състояние, а чрез енергийните практики работя в посока хармонизиране и възстановяване на вътрешния баланс. Всяка работа е изцяло индивидуална - с внимание към вашите лични усещания и нужди.")} />
                     </div>
 
                     <div className="about-welcome-box">
                         <div>
-                            <EditableText isAdminMode={isAdminMode} contentKey='about-welcome-box' onSave={handleSaveContent}
-                                initialText="Понякога промяната започва там, където невидимото най-накрая бъде осъзнато. Добре дошли в пространство, посветено на терапията и познанието за фините енергии." />
+                            <EditableText isAdminMode={isAdminMode} contentKey='about-welcome-box' onSave={onSave}
+                                initialText={getText(backendContent, 'about-welcome-box', "Понякога промяната започва там, където невидимото най-накрая бъде осъзнато. Добре дошли в пространство, посветено на терапията и познанието за фините енергии.")} />
                         </div>
                     </div>
 
                     <blockquote className="about-quote">
-                        <EditableText isAdminMode={isAdminMode} contentKey='about-quote' onSave={handleSaveContent}
-                            initialText="„Това, което не се вижда с очите, понякога се усеща най-силно.“" />
+                        <EditableText isAdminMode={isAdminMode} contentKey='about-quote' onSave={onSave}
+                            initialText={getText(backendContent, 'about-quote', "„Това, което не се вижда с очите, понякога се усеща най-силно.“")} />
                     </blockquote>
                 </motion.div>
             </div>
