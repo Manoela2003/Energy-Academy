@@ -1,7 +1,6 @@
 .probiotic-videos {
     padding: 5rem 1.5rem;
     background-color: var(--color-surface);
-    margin-bottom: 5rem;
 }
 
 .probiotic-videos-container {
@@ -66,4 +65,18 @@
 
 .yt-icon {
     color: #ff0000;
+    min-height: 24px;
+    min-width: 24px;
 }
+
+@media (max-width: 768px) {
+    .probiotic-videos {
+       margin-bottom: unset;
+       padding-bottom: 2rem;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
