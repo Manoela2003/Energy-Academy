@@ -7,6 +7,8 @@ import ProbioticPage from './pages/ProbioticPage.jsx'
 import NavBar from './components/NavBar/NavBar'
 import Footer from './components/Footer/Footer.jsx'
 import AboutMe from './pages/AboutMePage.jsx'
+import EventsPage from './pages/EventsPage.jsx'
+import EventDetailsPage from './pages/EventDetailsPage.jsx'
 
 function App() {
   const [isAdminMode, setIsAdminMode] = useState(false);
@@ -55,6 +57,10 @@ function App() {
         <Route path="/probiotic" element={<ProbioticPage isAdminMode={isAdminMode} backendContent={backendContent}
           onSave={handleSaveContent} />} />
         <Route path="/about-me" element={<AboutMe isAdminMode={isAdminMode} backendContent={backendContent}
+          onSave={handleSaveContent} />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/events/:id" element={<EventDetailsPage />} />
+        <Route path="*" element={<HomePage isAdminMode={isAdminMode} backendContent={backendContent}
           onSave={handleSaveContent} />} />
       </Routes>
 

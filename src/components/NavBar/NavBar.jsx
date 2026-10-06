@@ -9,9 +9,9 @@ function NavBar() {
 
     const navItems = [
         { id: 1, label: "Начало", href: "/" },
-        { id: 2, label: "Събития", href: "#events" },
+        { id: 2, label: "Събития", href: "/events" },
         { id: 3, label: "За мен", href: "/about-me" },
-        { id: 4, label: "Контакти", href: "#contacts" },
+        { id: 4, label: "Контакти", href: "/contacts" },
         { id: 5, label: "Пробиотик", href: "/probiotic" },
     ];
 
