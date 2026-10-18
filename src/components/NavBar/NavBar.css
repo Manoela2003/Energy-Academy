@@ -1,18 +1,25 @@
+/* --- True Absolute Centering Navbar --- */
 .nav-bar {
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: var(--color-primary);
-    position: relative;
+    position: relative; /* Container for absolute children if needed, or flex space */
     z-index: 1002;
+    min-height: 70px;
 }
 
 .nav-logo {
     height: 40px;
+    z-index: 2; /* Keeps logo clickable above absolute layers */
 }
 
+/* Forces the navigation container to sit in the absolute dead center of the navbar */
 .nav-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
 }
@@ -20,7 +27,7 @@
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 25px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -39,6 +46,15 @@
     opacity: 0.8;
 }
 
+/* Account / Auth Section (Pinned to the far right) */
+.account-icon {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-surface);
+    z-index: 2;
+}
+
 .menu-icon {
     display: none;
     cursor: pointer;
@@ -46,13 +62,7 @@
     z-index: 1003;
 }
 
-.account-icon {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--color-surface);
-}
-
+/* --- Buttons & User Info Styling --- */
 .login-btn {
     background-color: var(--color-accent);
     color: #ffffff;
@@ -67,10 +77,6 @@
 
 .login-btn:hover {
     background-color: var(--color-accent-hover);
-}
-
-.login-btn:active {
-    transform: scale(0.97);
 }
 
 .user-info {
@@ -104,13 +110,15 @@
     color: #ffffff;
 }
 
-.logout-btn:active {
-    transform: scale(0.95);
-}
-
+/* --- Mobile Responsiveness --- */
 @media screen and (max-width: 768px) {
+    .nav-container {
+        position: static; /* Disable absolute positioning on mobile */
+        transform: none;
+    }
+
     .account-icon {
-        display: none;
+        display: none; 
     }
 
     .menu-icon {
