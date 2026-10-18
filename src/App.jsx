@@ -9,6 +9,8 @@ import Footer from './components/Footer/Footer.jsx'
 import AboutMe from './pages/AboutMePage.jsx'
 import EventsPage from './pages/EventsPage.jsx'
 import EventDetailsPage from './pages/EventDetailsPage.jsx'
+import Register from './components/Register/Register.jsx'
+import Login from './components/Login/Login.jsx'
 
 function App() {
   const [isAdminMode, setIsAdminMode] = useState(false);
@@ -62,6 +64,8 @@ function App() {
         <Route path="/events/:id" element={<EventDetailsPage />} />
         <Route path="*" element={<HomePage isAdminMode={isAdminMode} backendContent={backendContent}
           onSave={handleSaveContent} />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
 
       <Footer />

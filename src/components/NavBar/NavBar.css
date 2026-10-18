@@ -46,6 +46,68 @@
     z-index: 1003;
 }
 
+.account-icon {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-surface);
+}
+
+.login-btn {
+    background-color: var(--color-accent);
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.login-btn:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.login-btn:active {
+    transform: scale(0.97);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-surface);
+}
+
+.logout-btn {
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-surface);
+    color: #ffffff;
+}
+
+.logout-btn:active {
+    transform: scale(0.95);
+}
+
 @media screen and (max-width: 768px) {
     .account-icon {
         display: none;

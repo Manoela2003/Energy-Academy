@@ -1,0 +1,106 @@
+/* Login.css - Energy Academy Warm Accent Theme */
+
+.login-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 32px;
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(12, 14, 15, 0.08);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--color-text-main);
+}
+
+.login-container h2 {
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-accent);
+}
+
+.error-alert {
+  background-color: rgba(111, 58, 40, 0.1);
+  border: 1px solid rgba(111, 58, 40, 0.3);
+  color: var(--color-accent);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-container div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-container label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.login-container input {
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease;
+  background-color: var(--color-surface);
+  color: var(--color-text-main);
+}
+
+.login-container input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(111, 58, 40, 0.15);
+  background-color: #ffffff;
+}
+
+.login-container button[type="submit"] {
+  margin-top: 8px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.login-container button[type="submit"]:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+}
+
+.login-container button[type="submit"]:disabled {
+  background-color: var(--color-secondary);
+  cursor: not-allowed;
+}
+
+.register-redirect {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.register-redirect a {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-redirect a:hover {
+  text-decoration: underline;
+}
