@@ -56,7 +56,9 @@ export default function Register() {
         }
 
         try {
-            const response = await fetch('/api/auth/register', {
+            const API_URL = 'https://energy-academy-be.onrender.com';
+
+            const response = await fetch(`${API_URL}/api/auth/register`, {
                 method: 'POST',
                 body: dataToSend
             });
