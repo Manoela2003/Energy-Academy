@@ -28,9 +28,13 @@ function App() {
 
   const handleSaveContent = async (key, newValue) => {
     try {
+      const token = localStorage.getItem('jwt_token');
       const response = await fetch(`${API_URL}/${key}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({ contentValue: newValue })
       });
 
