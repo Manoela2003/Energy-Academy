@@ -1,7 +1,7 @@
 import './Footer.css'
 import { Mail, Phone, MapPin, Send } from 'lucide-react'
 import { FaInstagram, FaFacebookF, FaTelegramPlane } from 'react-icons/fa'
-import logo from '../../assets/logo-placeholder.avif'
+import logo from '../../assets/logo.png'
 
 function Footer() {
     const quickLinks = [
