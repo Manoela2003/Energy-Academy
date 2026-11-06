@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
+import { API_BASE_URL } from '../../utils/ApiConfig';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -24,9 +25,8 @@ export default function Login() {
         setLoading(true);
 
         try {
-            const API_URL = 'https://energy-academy-be.onrender.com';
 
-            const response = await fetch(`${API_URL}/api/auth/login`, {
+            const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
@@ -38,10 +38,12 @@ export default function Login() {
                 throw new Error(data.message || "Грешен имейл или парола");
             }
 
-            // Save JWT token and redirect home
             localStorage.setItem('jwt_token', data.token);
+            localStorage.setItem('user_email', data.email);
+            localStorage.setItem('user_name', data.firstName + ' ' + data.lastName);
+            window.dispatchEvent(new Event('auth-changed'));
             navigate('/');
-            window.location.reload(); // Quick refresh so the NavBar instantly picks up the token & name
+            window.location.reload();
 
         } catch (err) {
             setError(err.message || "Възникна грешка при влизане");

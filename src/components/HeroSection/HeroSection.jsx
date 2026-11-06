@@ -1,7 +1,9 @@
 import './HeroSection.css';
 import tree from '/tree.webp';
+import { useNavigate } from 'react-router'; 
 
 function HeroSection() {
+    const navigate = useNavigate();
     return (
         <section className="hero-container">
             <img
@@ -17,7 +19,9 @@ function HeroSection() {
                     <span className="hero-tag">Добре дошъл в</span>
                     <h1 className="hero-title">Енергийна Академия</h1>
                     <p className="hero-subtitle">Мястото, на което ще възстановиш връзката със себе си</p>
-                    <button className="hero-btn">Разгледай събитията</button>
+                    <button className="hero-btn" onClick={() => navigate('/events')}>
+                        Разгледай събитията
+                    </button>
                 </div>
 
                 <div className="hero-divider">

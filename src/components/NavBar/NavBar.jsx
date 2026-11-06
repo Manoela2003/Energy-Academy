@@ -7,9 +7,10 @@ import logo from '../../assets/logo.png';
 function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
     const [firstName, setFirstName] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    const checkAuth = () => {
         const token = localStorage.getItem('jwt_token');
         if (token) {
             try {
@@ -17,20 +18,43 @@ function NavBar() {
                 const decodedPayload = JSON.parse(atob(payloadBase64));
 
                 setFirstName(decodedPayload.firstName);
+                if (decodedPayload.role === 'ROLE_ADMIN' || decodedPayload.role === 'ADMIN') {
+                    setIsAdmin(true);
+                } else {
+                    setIsAdmin(false);
+                }
             } catch (e) {
                 localStorage.removeItem('jwt_token');
+                setFirstName(null);
+                setIsAdmin(false);
             }
+        } else {
+            setFirstName(null);
+            setIsAdmin(false);
         }
+    };
+
+    useEffect(() => {
+        checkAuth();
+
+        window.addEventListener('auth-changed', checkAuth);
+
+        return () => {
+            window.removeEventListener('auth-changed', checkAuth);
+        };
     }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('jwt_token');
         setFirstName(null);
+        setIsAdmin(false);
+
+        window.dispatchEvent(new Event('auth-changed'));
+
         navigate('/');
-        window.location.reload();
     };
 
-    const navItems = [
+    const baseNavItems = [
         { id: 1, label: "Начало", href: "/" },
         { id: 2, label: "Събития", href: "/events" },
         { id: 3, label: "За мен", href: "/about-me" },
@@ -38,11 +62,15 @@ function NavBar() {
         { id: 5, label: "Пробиотик", href: "/probiotic" },
     ];
 
+    const navItems = isAdmin
+        ? [...baseNavItems, { id: 6, label: "Админ панел", href: "/admin" }]
+        : baseNavItems;
+
     const closeMenu = () => setIsOpen(false);
 
     return (
         <nav className="nav-bar">
-            <img className="nav-logo" src={logo} alt="Logo" />
+            <img className="nav-logo" src={logo} alt="Logo" onClick={() => navigate('/')} />
 
             <div className="nav-container">
                 <ul className={isOpen ? "nav-links active" : "nav-links"}>

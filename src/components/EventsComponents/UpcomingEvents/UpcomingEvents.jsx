@@ -10,7 +10,6 @@ function UpcomingEvents() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Replace this URL with your actual Spring Boot endpoint (e.g., 'http://localhost:8080/api/events')
         fetch('/api/events')
             .then(response => {
                 if (!response.ok) throw new Error('Failed to fetch events');
@@ -22,7 +21,6 @@ function UpcomingEvents() {
             })
             .catch(err => {
                 console.error("Error fetching events:", err);
-                // Fallback to mock data for development if backend is not ready
                 setEvents([
                     {
                         id: 1,

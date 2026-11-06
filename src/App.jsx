@@ -11,11 +11,15 @@ import EventsPage from './pages/EventsPage.jsx'
 import EventDetailsPage from './pages/EventDetailsPage.jsx'
 import Register from './components/Register/Register.jsx'
 import Login from './components/Login/Login.jsx'
+import EventRegister from './components/EventsComponents/EventRegister/EventRegister.jsx'
+import AdminDashboard from './components/AdminComponents/AdminDashboard/AdminDashboard.jsx'
+import AdminRoute from './components/AdminComponents/AdminRoute.jsx'
+import { API_BASE_URL } from './utils/ApiConfig.jsx'
 
 function App() {
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [backendContent, setBackendContent] = useState({});
-  const API_URL = 'https://energy-academy-be.onrender.com/api/content';
+  const API_URL = `${API_BASE_URL}/api/content`;
 
   useEffect(() => {
     fetch(API_URL)
@@ -70,6 +74,14 @@ function App() {
           onSave={handleSaveContent} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/events/:id/register" element={<EventRegister />} />
+        <Route
+          path="/admin" element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
       </Routes>
 
       <Footer />

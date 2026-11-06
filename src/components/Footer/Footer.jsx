@@ -6,9 +6,10 @@ import logo from '../../assets/logo.png'
 function Footer() {
     const quickLinks = [
         { id: 1, label: "Начало", href: "/" },
-        { id: 2, label: "Предстоящи събития", href: "#events" },
-        { id: 3, label: "За мен", href: "#about" },
-        { id: 4, label: "Контакти", href: "#contact" },
+        { id: 2, label: "Предстоящи събития", href: "/events" },
+        { id: 3, label: "За мен", href: "/about-me" },
+        { id: 4, label: "Контакти", href: "/contacts" },
+        { id: 5, label: "Пробиотик", href: "/probiotic" },
     ]
 
     const serviceLinks = [

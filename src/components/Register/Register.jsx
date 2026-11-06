@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
+import { API_BASE_URL } from '../../utils/ApiConfig';
 
 export default function Register() {
     const navigate = useNavigate();
@@ -56,14 +57,20 @@ export default function Register() {
         }
 
         try {
-            const API_URL = 'https://energy-academy-be.onrender.com';
-
-            const response = await fetch(`${API_URL}/api/auth/register`, {
+            const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
                 method: 'POST',
                 body: dataToSend
             });
 
-            const data = await response.json();
+            const contentType = response.headers.get("content-type");
+            let data = null;
+            if (contentType && contentType.includes("application/json")) {
+                data = await response.json();
+            } else {
+                const textResponse = await response.text();
+                console.error("Non-JSON server response received:", textResponse);
+                throw new Error(`Сървърна грешка (${response.status}): Получен е HTML вместо JSON.`);
+            }
 
             if (!response.ok) {
                 if (typeof data === 'object' && data !== null) {
@@ -75,10 +82,19 @@ export default function Register() {
             }
 
             localStorage.setItem('jwt_token', data.token);
+            window.dispatchEvent(new Event('auth-changed'));
             navigate('/');
 
         } catch (err) {
-            setGeneralError("Няма връзка със сървъра.");
+            console.error("DETAILED REGISTRATION ERROR:", err);
+
+            if (err.message && err.message.includes("Сървърна грешка")) {
+                setGeneralError(err.message);
+            } else if (err instanceof TypeError && err.message.includes("fetch")) {
+                setGeneralError("Няма връзка със сървъра. Моля, опитайте по-късно.");
+            } else {
+                setGeneralError(`Грешка в приложението: ${err.message}`);
+            }
         } finally {
             setLoading(false);
         }
