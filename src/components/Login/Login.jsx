@@ -7,7 +7,7 @@ export default function Login() {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        email: '',
+        identifier: '',
         password: ''
     });
 
@@ -25,7 +25,6 @@ export default function Login() {
         setLoading(true);
 
         try {
-
             const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -39,12 +38,24 @@ export default function Login() {
             }
 
             localStorage.setItem('jwt_token', data.token);
-            localStorage.setItem('user_email', data.email);
-            localStorage.setItem('user_name', data.firstName + ' ' + data.lastName);
+            if (data && data.email) {
+                localStorage.setItem('user_email', data.email);
+            }
+
+            const firstName = data.user?.firstName || '';
+            const lastName = data.user?.lastName || '';
+            const fullName = `${firstName} ${lastName}`.trim();
+
+            if (fullName) {
+                localStorage.setItem('user_name', fullName);
+            } else {
+                localStorage.removeItem('user_name');
+            }
+
             window.dispatchEvent(new Event('auth-changed'));
 
             const redirectPath = localStorage.getItem('redirect_after_login');
-            
+
             if (redirectPath) {
                 localStorage.removeItem('redirect_after_login');
                 navigate(redirectPath);

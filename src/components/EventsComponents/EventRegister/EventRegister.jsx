@@ -12,9 +12,9 @@ function EventRegister() {
     const [eventTitle, setEventTitle] = useState("Събитие");
 
     const [formData, setFormData] = useState({
-        name: localStorage.getItem('user_name') || '',
-        email: localStorage.getItem('user_email') || '',
-        phone: localStorage.getItem('user_phone') || ''
+        name: localStorage.getItem('user_name'),
+        email: localStorage.getItem('user_email'),
+        phone: localStorage.getItem('user_phone')
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,7 +30,7 @@ function EventRegister() {
         if (token) {
             const decodedUser = decodeToken(token);
             if (decodedUser) {
-                const fullName = `${decodedUser.firstName || ''} ${decodedUser.lastName || ''}`.trim();
+                const fullName = `${decodedUser.firstName} ${decodedUser.lastName}`.trim();
 
                 setFormData({
                     name: fullName,
@@ -111,7 +111,7 @@ function EventRegister() {
                                             name="name"
                                             required
                                             placeholder="Вашите имена"
-                                            value={formData.name}
+                                            value={formData.name !== undefined ? formData.name : ''}
                                             onChange={handleChange}
                                         />
                                     </div>
@@ -127,7 +127,7 @@ function EventRegister() {
                                             name="email"
                                             required
                                             placeholder="your@email.com"
-                                            value={formData.email}
+                                            value={formData.email !== undefined ? formData.email : ''}
                                             onChange={handleChange}
                                         />
                                     </div>
@@ -143,7 +143,7 @@ function EventRegister() {
                                             name="phone"
                                             required
                                             placeholder="+359 88X XXX XXX"
-                                            value={formData.phone}
+                                            value={formData.phone !== undefined ? formData.phone : ''}
                                             onChange={handleChange}
                                         />
                                     </div>

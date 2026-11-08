@@ -46,6 +46,8 @@ function NavBar() {
 
     const handleLogout = () => {
         localStorage.removeItem('jwt_token');
+        localStorage.removeItem('user_name');
+        localStorage.removeItem('user_email');
         setFirstName(null);
         setIsAdmin(false);
 
