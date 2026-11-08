@@ -42,7 +42,15 @@ export default function Login() {
             localStorage.setItem('user_email', data.email);
             localStorage.setItem('user_name', data.firstName + ' ' + data.lastName);
             window.dispatchEvent(new Event('auth-changed'));
-            navigate('/');
+
+            const redirectPath = localStorage.getItem('redirect_after_login');
+            
+            if (redirectPath) {
+                localStorage.removeItem('redirect_after_login');
+                navigate(redirectPath);
+            } else {
+                navigate('/');
+            }
             window.location.reload();
 
         } catch (err) {

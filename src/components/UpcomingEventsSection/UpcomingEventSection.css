@@ -82,6 +82,7 @@
   line-height: 1.7;
   color: var(--color-text-main);
   margin: 0 0 1.5rem 0;
+  flex: unset;
 }
 
 .event-highlights {

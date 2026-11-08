@@ -37,7 +37,9 @@ function Footer() {
                         </div>
                     </div>
                     <div className="footer-socials">
-                        <a href="#" aria-label="Instagram"><FaInstagram size={19} /></a>
+                        <a href="https://instagram.com/energyacademybistrastamenova/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <FaInstagram size={19} />
+                        </a>
                         <a href="#" aria-label="Facebook"><FaFacebookF size={18} /></a>
                         <a href="#" aria-label="Telegram"><FaTelegramPlane size={18} /></a>
                     </div>

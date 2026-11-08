@@ -4,7 +4,7 @@ import './css/App.css'
 import './css/reset.css'
 import HomePage from './pages/HomePage.jsx'
 import ProbioticPage from './pages/ProbioticPage.jsx'
-import NavBar from './components/NavBar/NavBar'
+import NavBar from './components/NavBar/NavBar.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import AboutMe from './pages/AboutMePage.jsx'
 import EventsPage from './pages/EventsPage.jsx'
@@ -14,6 +14,7 @@ import Login from './components/Login/Login.jsx'
 import EventRegister from './components/EventsComponents/EventRegister/EventRegister.jsx'
 import AdminDashboard from './components/AdminComponents/AdminDashboard/AdminDashboard.jsx'
 import AdminRoute from './components/AdminComponents/AdminRoute.jsx'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop.jsx'
 import { API_BASE_URL } from './utils/ApiConfig.jsx'
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
 
   return (
     <div className="app">
+      <ScrollToTop />
       <NavBar />
       <div className="admin-toggle-bar">
         <button

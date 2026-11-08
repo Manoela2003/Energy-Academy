@@ -3,6 +3,7 @@ import { MoveRight, Sparkles, CalendarDays } from 'lucide-react'
 import courseOneImage from '../../assets/course-1-image.jpg'
 import courseTwoImage from '../../assets/course-2-image.jpg'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -32,57 +33,59 @@ const cardVariants = {
     },
 }
 
-function Event({ title, subtitle, description, highlights, quote, image }) {
-  return (
-    <motion.article
-      className="event"
-      variants={cardVariants}
-      whileHover={{
-        y: -6,
-        boxShadow: "rgba(61, 92, 95, 0.18) 0px 16px 36px",
-        transition: { duration: 0.22, ease: 'easeOut' },
-      }}
-    >
-      <div className="event-media">
-        <motion.img
-          src={image}
-          alt={title}
-          className="event-img"
-          whileHover={{
-            scale: 1.04,
-            transition: { duration: 0.25, ease: 'easeOut' },
-          }}
-        />
-      </div>
+function Event({ id, title, subtitle, description, highlights, quote, image }) {
+    const navigate = useNavigate();
 
-      <div className="event-content">
-        <h3 className="event-title">{title}</h3>
-        {subtitle && <p className="event-subtitle">{subtitle}</p>}
-        <p className="event-description">{description}</p>
+    return (
+        <motion.article
+            className="event"
+            variants={cardVariants}
+            whileHover={{
+                y: -6,
+                boxShadow: "rgba(61, 92, 95, 0.18) 0px 16px 36px",
+                transition: { duration: 0.22, ease: 'easeOut' },
+            }}
+        >
+            <div className="event-media">
+                <motion.img
+                    src={image}
+                    alt={title}
+                    className="event-img"
+                    whileHover={{
+                        scale: 1.04,
+                        transition: { duration: 0.25, ease: 'easeOut' },
+                    }}
+                />
+            </div>
 
-        {highlights?.length > 0 && (
-          <div className="event-highlights">
-            <span className="highlights-label">🌿 За теб, ако усещаш порив да:</span>
-            <ul>
-              {highlights.map((item, idx) => (
-                <li key={idx}>
-                  <Sparkles size={14} className="highlight-icon" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+            <div className="event-content">
+                <h3 className="event-title">{title}</h3>
+                {subtitle && <p className="event-subtitle">{subtitle}</p>}
+                <p className="event-description">{description}</p>
 
-        {quote && <blockquote className="event-quote">{quote}</blockquote>}
+                {highlights?.length > 0 && (
+                    <div className="event-highlights">
+                        <span className="highlights-label">🌿 За теб, ако усещаш порив да:</span>
+                        <ul>
+                            {highlights.map((item, idx) => (
+                                <li key={idx}>
+                                    <Sparkles size={14} className="highlight-icon" />
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
 
-        <button className="sign-button" type="button">
-          <span>Запиши се</span>
-          <MoveRight size={18} />
-        </button>
-      </div>
-    </motion.article>
-  )
+                {quote && <blockquote className="event-quote">{quote}</blockquote>}
+
+                <button className="sign-button" type="button" onClick={() => navigate(`/events/${id}/register`)}>
+                    <span>Запиши се</span>
+                    <MoveRight size={18} />
+                </button>
+            </div>
+        </motion.article>
+    )
 }
 
 export default function UpcomingEventsSection() {

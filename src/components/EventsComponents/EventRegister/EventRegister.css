@@ -100,7 +100,7 @@
     transition: color 0.3s ease;
 }
 
-.input-with-icon input {
+.register-form .input-with-icon input {
     width: 100%;
     padding: 14px 16px 14px 48px;
     border: 1px solid var(--color-border);
@@ -109,7 +109,7 @@
     color: var(--color-text-main);
     background-color: #fafbfc;
     outline: none;
-    transition: all 0.3s ease; /* Smoothed out input transitions */
+    transition: all 0.3s ease;
 }
 
 .input-with-icon input::placeholder {

@@ -102,7 +102,7 @@
     line-height: 1.6;
     color: var(--color-text-main);
     margin: 0 0 1.5rem 0;
-    flex: 1;
+    /* flex: 1; */
 }
 
 .event-details {
