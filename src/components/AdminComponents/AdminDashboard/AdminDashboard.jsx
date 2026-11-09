@@ -72,7 +72,18 @@ function AdminDashboard() {
     };
 
     const fetchStats = async () => {
-        setStats({ totalUsers: 12, totalEvents: 5, totalRegistrations: 34 });
+        setLoading(true);
+        setError(null);
+        try {
+            const data = await apiFetch("/api/admin/stats", {
+                method: 'GET'
+            });
+            setStats(data);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const deleteUser = async (id) => {
