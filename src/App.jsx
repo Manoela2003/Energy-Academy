@@ -1,34 +1,46 @@
-import { Routes, Route } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import './css/App.css'
-import './css/reset.css'
-import HomePage from './pages/HomePage.jsx'
-import ProbioticPage from './pages/ProbioticPage.jsx'
-import NavBar from './components/NavBar/NavBar.jsx'
-import Footer from './components/Footer/Footer.jsx'
-import AboutMe from './pages/AboutMePage.jsx'
-import EventsPage from './pages/EventsPage.jsx'
-import EventDetailsPage from './pages/EventDetailsPage.jsx'
-import Register from './components/Register/Register.jsx'
-import Login from './components/Login/Login.jsx'
-import EventRegister from './components/EventsComponents/EventRegister/EventRegister.jsx'
-import AdminDashboard from './components/AdminComponents/AdminDashboard/AdminDashboard.jsx'
-import AdminRoute from './components/AdminComponents/AdminRoute.jsx'
-import ScrollToTop from './components/ScrollToTop/ScrollToTop.jsx'
-import { API_BASE_URL } from './utils/ApiConfig.jsx'
+import { Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import './css/App.css';
+import './css/reset.css';
+import HomePage from './pages/HomePage.jsx';
+import ProbioticPage from './pages/ProbioticPage.jsx';
+import NavBar from './components/NavBar/NavBar.jsx';
+import Footer from './components/Footer/Footer.jsx';
+import AboutMe from './pages/AboutMePage.jsx';
+import EventsPage from './pages/EventsPage.jsx';
+import EventDetailsPage from './pages/EventDetailsPage.jsx';
+import Register from './components/Register/Register.jsx';
+import Login from './components/Login/Login.jsx';
+import EventRegister from './components/EventsComponents/EventRegister/EventRegister.jsx';
+import AdminDashboard from './components/AdminComponents/AdminDashboard/AdminDashboard.jsx';
+import AdminRoute from './components/AdminComponents/AdminRoute.jsx';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop.jsx';
+import { API_BASE_URL } from './utils/ApiConfig.jsx';
 
 function App() {
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [backendContent, setBackendContent] = useState({});
+  const [contentLoading, setContentLoading] = useState(true);
+  const [contentError, setContentError] = useState(null);
+  
   const API_URL = `${API_BASE_URL}/api/content`;
 
   useEffect(() => {
+    setContentLoading(true);
     fetch(API_URL)
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error("Неуспешно зареждане на съдържанието.");
+        return res.json();
+      })
       .then(data => {
         setBackendContent(data);
+        setContentLoading(false);
       })
-      .catch(err => console.log("Backend not running or offline, using defaults.", err));
+      .catch(err => {
+        console.log("Backend not running or offline, using defaults.", err);
+        setContentError("Свързването с базата данни беше неуспешно. Използват се текстовете по подразбиране.");
+        setContentLoading(false);
+      });
   }, []);
 
   const handleSaveContent = async (key, newValue) => {
@@ -43,11 +55,15 @@ function App() {
         body: JSON.stringify({ contentValue: newValue })
       });
 
-      if (response.ok) {
-        setBackendContent(prev => ({ ...prev, [key]: newValue }));
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || "Грешка при запазване на промените.");
       }
+
+      setBackendContent(prev => ({ ...prev, [key]: newValue }));
     } catch (error) {
       console.error("Failed to save content to backend:", error);
+      throw error;
     }
   };
 
@@ -55,6 +71,7 @@ function App() {
     <div className="app">
       <ScrollToTop />
       <NavBar />
+      
       <div className="admin-toggle-bar">
         <button
           onClick={() => setIsAdminMode(!isAdminMode)}
@@ -63,17 +80,16 @@ function App() {
           {isAdminMode ? '🔓 Режим Админ: Включен (Натисни за изход)' : '🔒 Обикновен потребител (Натисни, за да влезеш като админ)'}
         </button>
       </div>
+
+      {contentError && <div className="global-content-error">{contentError}</div>}
+
       <Routes>
-        <Route path="/" element={<HomePage isAdminMode={isAdminMode} backendContent={backendContent}
-          onSave={handleSaveContent} />} />
-        <Route path="/probiotic" element={<ProbioticPage isAdminMode={isAdminMode} backendContent={backendContent}
-          onSave={handleSaveContent} />} />
-        <Route path="/about-me" element={<AboutMe isAdminMode={isAdminMode} backendContent={backendContent}
-          onSave={handleSaveContent} />} />
+        <Route path="/" element={<HomePage isAdminMode={isAdminMode} backendContent={backendContent} onSave={handleSaveContent} contentLoading={contentLoading} />} />
+        <Route path="/probiotic" element={<ProbioticPage isAdminMode={isAdminMode} backendContent={backendContent} onSave={handleSaveContent} />} />
+        <Route path="/about-me" element={<AboutMe isAdminMode={isAdminMode} backendContent={backendContent} onSave={handleSaveContent} />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/events/:id" element={<EventDetailsPage />} />
-        <Route path="*" element={<HomePage isAdminMode={isAdminMode} backendContent={backendContent}
-          onSave={handleSaveContent} />} />
+        <Route path="*" element={<HomePage isAdminMode={isAdminMode} backendContent={backendContent} onSave={handleSaveContent} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/events/:id/register" element={<EventRegister />} />
@@ -88,7 +104,7 @@ function App() {
 
       <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
