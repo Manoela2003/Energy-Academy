@@ -1,6 +1,5 @@
 import { API_BASE_URL } from './ApiConfig';
 
-
 export const apiFetch = async (endpoint, options = {}) => {
     const token = localStorage.getItem('jwt_token');
 

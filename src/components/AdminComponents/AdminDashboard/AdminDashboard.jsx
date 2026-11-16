@@ -12,6 +12,23 @@ function AdminDashboard() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
+    const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+
+    const [deleteModal, setDeleteModal] = useState({
+        isOpen: false,
+        userId: null,
+        userName: ''
+    });
+
+    const [newEvent, setNewEvent] = useState({
+        title: '',
+        date: '',
+        time: '',
+        location: '',
+        maxPeopleCount: '',
+        description: '',
+        image: null
+    });
 
     const token = localStorage.getItem('jwt_token');
 
@@ -59,13 +76,10 @@ function AdminDashboard() {
     const fetchEvents = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`${API_BASE_URL}/api/events`);
-            if (res.ok) {
-                const data = await res.json();
-                setEvents(data);
-            }
+            const data = await apiFetch("/api/events");
+            setEvents(data);
         } catch (err) {
-            setError("Неуспешно зареждане на събитията.");
+            setError(err.message || "Неуспешно зареждане на събитията.");
         } finally {
             setLoading(false);
         }
@@ -86,7 +100,17 @@ function AdminDashboard() {
         }
     };
 
-    const deleteUser = async (id) => {
+    const confirmDeleteUser = (u) => {
+        setDeleteModal({
+            isOpen: true,
+            userId: u.id,
+            userName: `${u.firstName || ''} ${u.lastName || ''}`.trim() || u.email
+        });
+    };
+
+    const deleteUser = async () => {
+        const id = deleteModal.userId;
+        setDeleteModal({ isOpen: false, userId: null, userName: '' });
         setError(null);
         setSuccess(null);
 
@@ -144,7 +168,7 @@ function AdminDashboard() {
         setLoading(true);
 
         try {
-            const updatedUser = await apiFetch(`/api/admin/users/${editingUser.id}`, {
+            await apiFetch(`/api/admin/users/${editingUser.id}`, {
                 method: 'PUT',
                 body: JSON.stringify(editingUser)
             });
@@ -165,6 +189,62 @@ function AdminDashboard() {
 
             setSuccess("Потребителят беше успешно обновен.");
             setIsEditModalOpen(false);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleEventChange = (e) => {
+        const { name, value, files } = e.target;
+        if (name === 'image') {
+            setNewEvent({ ...newEvent, image: files[0] });
+        } else {
+            setNewEvent({ ...newEvent, [name]: value });
+        }
+    };
+
+    const handleCreateEvent = async (e) => {
+        e.preventDefault();
+        setError(null);
+        setSuccess(null);
+        setLoading(true);
+
+        const dataToSend = new FormData();
+        dataToSend.append('title', newEvent.title);
+        dataToSend.append('date', newEvent.date);
+        dataToSend.append('time', newEvent.time);
+        dataToSend.append('location', newEvent.location);
+
+        if (newEvent.maxPeopleCount !== '') {
+            dataToSend.append('maxPeopleCount', newEvent.maxPeopleCount);
+        }
+
+        dataToSend.append('description', newEvent.description || '');
+        if (newEvent.image) {
+            dataToSend.append('image', newEvent.image);
+        }
+
+        try {
+            const res = await fetch(`${API_BASE_URL}/api/events`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: dataToSend
+            });
+
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData.message || "Неуспешно създаване на събитие.");
+            }
+
+            const createdEvent = await res.json();
+            setEvents(prev => [...prev, createdEvent]);
+            setSuccess("Събитието беше успешно създадено.");
+            setIsEventModalOpen(false);
+            setNewEvent({ title: '', date: '', time: '', location: '', maxPeopleCount: '', description: '', image: null });
         } catch (err) {
             setError(err.message);
         } finally {
@@ -264,7 +344,7 @@ function AdminDashboard() {
                                             <td><span className={`badge ${u.role}`}>{u.role}</span></td>
                                             <td>
                                                 <button className="action-btn edit" title="Редактирай" onClick={() => openEditModal(u.id)}><Edit size={16} /></button>
-                                                <button className="action-btn delete" title="Изтрий" onClick={() => deleteUser(u.id)}><Trash2 size={16} /></button>
+                                                <button className="action-btn delete" title="Изтрий" onClick={() => confirmDeleteUser(u)}><Trash2 size={16} /></button>
                                             </td>
                                         </tr>
                                     )) : (
@@ -282,7 +362,9 @@ function AdminDashboard() {
                     <div className="table-responsive">
                         <div className="table-header-flex">
                             <h3>Управление на събития</h3>
-                            <button className="btn-primary-small">+ Добави събитие</button>
+                            <button className="btn-primary-small" onClick={() => setIsEventModalOpen(true)}>
+                                + Добави събитие
+                            </button>
                         </div>
                         {loading ? <p>Зареждане...</p> : (
                             <table className="admin-table">
@@ -316,6 +398,34 @@ function AdminDashboard() {
                     </div>
                 )}
             </div>
+
+            {deleteModal.isOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-card">
+                        <h3>Потвърждение за изтриване</h3>
+                        <p style={{ marginBottom: '20px', color: 'var(--color-text-muted)' }}>
+                            Сигурни ли сте, че искате да изтриете потребител <strong>{deleteModal.userName}</strong>? Това действие е необратимо.
+                        </p>
+                        <div className="modal-actions">
+                            <button
+                                type="button"
+                                className="btn-secondary"
+                                onClick={() => setDeleteModal({ isOpen: false, userId: null, userName: '' })}
+                            >
+                                Отказ
+                            </button>
+                            <button
+                                type="button"
+                                className="btn-primary-small"
+                                onClick={deleteUser}
+                            >
+                                Изтрий
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {isEditModalOpen && (
                 <div className="modal-overlay">
                     <div className="modal-card">
@@ -381,6 +491,101 @@ function AdminDashboard() {
                                 </button>
                                 <button type="submit" className="btn-primary-small">
                                     Запази промените
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {isEventModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-card">
+                        <h3>Добавяне на ново събитие</h3>
+                        <form onSubmit={handleCreateEvent}>
+                            <div className="form-group">
+                                <label>Заглавие *</label>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={newEvent.title}
+                                    onChange={handleEventChange}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Дата *</label>
+                                <input
+                                    type="date"
+                                    name="date"
+                                    value={newEvent.date}
+                                    onChange={handleEventChange}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Час *</label>
+                                <input
+                                    type="text"
+                                    name="time"
+                                    placeholder="напр. 18:00 - 20:30"
+                                    value={newEvent.time}
+                                    onChange={handleEventChange}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Локация / Формат *</label>
+                                <input
+                                    type="text"
+                                    name="location"
+                                    placeholder="напр. Онлайн / На живо в студиото"
+                                    value={newEvent.location}
+                                    onChange={handleEventChange}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Максимален брой участници (опционално)</label>
+                                <input
+                                    type="number"
+                                    name="maxPeopleCount"
+                                    placeholder="напр. 30 (оставете празно за без лимит)"
+                                    value={newEvent.maxPeopleCount}
+                                    onChange={handleEventChange}
+                                    min="1"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Описание</label>
+                                <textarea
+                                    name="description"
+                                    value={newEvent.description}
+                                    onChange={handleEventChange}
+                                    rows={3}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Снимка на събитието</label>
+                                <input
+                                    style={{ cursor: 'pointer' }}
+                                    type="file"
+                                    name="image"
+                                    accept="image/*"
+                                    onChange={handleEventChange}
+                                />
+                            </div>
+                            <div className="modal-actions">
+                                <button
+                                    type="button"
+                                    className="btn-secondary"
+                                    onClick={() => setIsEventModalOpen(false)}
+                                    disabled={loading}
+                                >
+                                    Отказ
+                                </button>
+                                <button type="submit" className="btn-primary-small" disabled={loading}>
+                                    {loading ? "Запис..." : "Създай събитие"}
                                 </button>
                             </div>
                         </form>

@@ -210,7 +210,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1005;
 }
 
 .modal-card {
@@ -298,4 +298,8 @@
 
 .btn-secondary:active {
     transform: translateY(0);
+}
+
+#file-upload-input {
+    cursor: pointer;
 }
